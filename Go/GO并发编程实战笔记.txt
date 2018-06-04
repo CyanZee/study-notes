@@ -1,0 +1,126 @@
+本书代码地址：https://github.com/gopcp/example.v2
+
+============第一章 初识GO
+语言特性：
+	开放源代码
+	静态类型和编译型
+	跨平台
+	自动垃圾回收
+	原生的并发编程
+	完善的构建工具
+	多编程范式
+	代码风格强制统一
+	高效的编程和运行
+	丰富的标准库
+	
+注意：
+	只有当环境变量GOPATH中只包含一个工作区目录路径时，go install 命令才会把命令源码文件安装到当前工作区的bin目录下；否则，执行go install失败。此时必须设置环境变量GOBIN，该环境变量的值是一个目录的路径，该目录用于存放所以因安装GO命令源码文件而生成的可执行文件。
+	
+测试源码文件：
+	两个充分条件：
+		1、文件名需要以_test.go结尾
+		2、文件中需要至少包含一个名称以Test开头或Benchmark开头，且拥有一个类型为*testing.T或*testing.B的参数的函数。testing.T和testing.B是两个结构体类型。而*testing.T和*testing.B则分别为前两者的指针类型。分别是功能测试和基准测试所需的。
+
+注意：
+	GO代码的文本文件需要以UTF-8编码存储。否则会抛出illegal UTF-8 sequence错误。
+
+包初始化：
+	在GO中，可以有专门的函数负责代码包初始化，称为代码包初始化函数。该函数无任何参数声明和结果声明，且名称必须为init:
+	func init(){}
+	1、当前代码包中所以全局变量的初始化会在代码包初始化函数执行前完成。
+	2、所有的代码包初始化函数都会在main函数执行前执行完毕。
+	
+go命令的子命令：
+	build
+	clean
+	doc
+	env
+	fix
+	fmt
+	generate
+	get
+	install
+	list
+	run
+	test
+	tool
+	vet
+	version
+	较通用的标记：-a/-n/-race/-v/-work/-x
+	
+接口：
+	一个接口类型的声明中可以嵌入任意其他接口类型。
+	例如：
+		type OutboundConnHandler interface {
+			ConnHandler          //接口类型
+			onStatus(obConn OutboundConn)
+			OnStreamCreated(obConn OutboundConn, stream OutboundStream)
+		}
+	
+==================== 第三章 并发编程综述 =======================
+
+IPC(Inter-Process Communication)进程间通信方式
+	Linux操作系统中：
+	基于通信的IPC方法：以数据传送为手段的IPC方法（管道pipe、消息队列message queue），以共享内存为手段的IPC方法（共享内存区shared memory）
+	基于信号的IPC方法：信号signal机制（属于异步IPC方法）
+	基于同步的IPC方法：信号量semaphore
+	
+	Go支持的IPC方法：管道、信号、socket
+	
+进程的标识：通过GO标准库代码包os查看当前进程的PID和PPID
+	pid := os.Getpid()
+	ppid := os.Getppid()
+	
+进程的切换和调度
+	进程切换：在进程换出换入期间必须要做的任务统称
+	进程调度：内核考虑下次切换时运行哪个进程、何时进行切换、被换下的进程何时再换上等等的问题方案和任务
+	
+原子操作：执行过程中不能中断的操作。(注：所有的系统调用都是原子操作)  标准库代码包sync/atomic中的一些函数
+
+临界区：只能被串行化访问或执行的某个资源或某段代码。
+
+互斥：保证只有一个进程或线程在临界区之内
+
+管道：一种半双工(单向)的通信方式，只能用于父进程与子进程以及同祖先的子进程之间的通信。(参考程序pipe.go)
+	引用的标准代码包：os/exec、io、bytes
+	1、由于stdout0的值也是io.Reader类型的，所以可以把它作为bufio.NewReader函数的参数。
+	2、因为*bytes.Buffer类型实现了io.Writer接口，所以才能把&outputBuf2赋给cmd1.Stdout
+	3、因为*bytes.Buffer类型也实现了io.Reader接口，所以才能把&outputBuf2也赋给cmd2.Stdin
+	
+	命名管道：
+		使用命令mkfifo创建命名管道myfifo1: ~$mkfifo -m 644 myfifo1
+		                                   ~$tee dst.log < myfifo1 &
+										   ~$cat src.log > myfifo1 
+	
+信号：
+	linux系统下：kill -l 查看支持的信号。（共62种，没有32和33）
+	其中，1至31的信号属于标准信号(不可靠信号)，从34至64的信号属于实时信号(可靠信号)
+	示例：gopcp.v2/chapter3/signal/signal.go
+	
+套接字socket ：
+	所用协议：TCP传输控制协议、UDP用户数据报协议、SCTP流控制传输协议、IPv4和IPv6为TCP/IP网络互连层协议IP(Internet Protocol,网际协议)
+	在调用net.Dial函数时阻塞，超时后返回相应error类型值。
+	可调用net.DialTimeout函数设定超时时间
+	
+	LocalAddr方法返回的结果值代表了本地地址，而RemoteAddr方法返回的结果值代表了远程地址。
+	
+	net.Addr类型是一个接口类型，它的方法集合中有两个方法：Network和String。
+	Network方法会返回当前连接所使用的协议的名称，String方法会返回相应的一个地址。例如：conn.LocalAddr().Network()会返回"tcp"、conn.RemoteAddr().String()会返回"127.0.0.1:8085"
+	
+多线程编程
+	创建线程：任何线程都可以通过调用系统调用pthread_create来创建新的线程。
+	终止线程：可有多种方式，其中可调用系统调用phtread_cancel取消掉给定线程ID代表的线程。
+	连接已终止的线程：pthread_join
+	分离线程：pthread_detach
+	线程对自身的终止与分离：如果在主线程中调用pthread_exit函数，那么只有主线程自己会被终止，而其他线程仍然会照常运行。
+
+
+
+
+
+
+
+	
+	
+
+	
