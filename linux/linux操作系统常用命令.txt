@@ -1,0 +1,27 @@
+
+=====================linux操作系统常用命令=======================
+注销与关闭:
+	#logout //注销
+	#shutdown [-krhfc] [-t secs] time [warning message]
+	其他关机命令：
+		halt reboot poweroff
+
+常用命令：
+	pwd                         打印当前路径
+	date                        显示当前系统时间
+		date -s "日期 时间"     修改系统时间
+		date +%Y%m%d            以此格式显示时间
+	who 						打印当前已登录到系统的所有用户名
+	cal 2018				    显示2018年的日历
+	uname 						显示操作系统
+		uname -r			    显示内核版本号
+		uname -m 				显示所用机器类型
+		uname -i 				显示所需硬件平台
+		uname -v 				显示操作系统版本
+	wc 文件名 					统计文件行数l、字数w、字节数c
+	date;who;pwd 				一个命令行中可以置入多个命令，用分号隔开
+	man 命令名
+	命令名 --help
+	info 命令名
+	whatis 命令名				在线帮助命令
+	
