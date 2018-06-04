@@ -1,0 +1,58 @@
+=======================================
+            第一章 认识并发
+=======================================
+为什么使用并发
+	关注点分离和性能
+
+进程中的所有线程都共享相同的地址空间，并且从所有线程中访问到大部分数据——全局变量仍然是全局的，指针、对象的引用或数据可以在线程之间传递。
+
+MFC(Microsoft Foundation Class)微软基础类库，一个c++类库，主要封装了大部分的windows API函数。它除了是一个类库以外，还是一个框架，在vc++里新建一个MFC的工程，开发环境自动帮你生成许多文件，同时使用了mfcxx.dll。
+=======================================
+            第二章 管理线程
+=======================================
+my_thread.detach();
+	通过调用detach()显示地决定不等待该线程结束；如果要分离线程，通常在线程启动后就可以立即调用detach()。
+
+my_thread.join();
+	等待一个线程结束。
+	为了避免应用程序在引发异常的时候被终止，一般来说，如果在非异常的情况下调用join()，还需要在存在异常时调用join(),以避免意外的生命周期问题。
+	struct func;
+	void f()
+	{
+		int some_local_state=0;
+		func my_func(some_local_state);
+		std::thread t(my_func);
+		try
+		{
+			do_something_in_current_thread();
+		}
+		catch(...)
+		{
+			t.join(); //
+			throw;
+		}
+		t.join(); //
+	}
+	
+	另外一种情况：提供一个类，在它的析构函数中进行join()如下：
+	~thread_guard()
+	{
+		if (t.joinable())
+		{
+			t.join();
+		}
+	} //只能在t.joinable()返回false时，为一个对象t调用t.join()
+	  //相同的，只能在t.joinable()返回true时， 为一个对象调用t.detach()
+	  
+拷贝构造函数和拷贝赋值运算符被标记=delete，以确保他们不会由编译器自动提供：
+	class thread_guard
+	{
+		...
+		thread_guard(thread_guard const&)=delete;
+		thread_guard& operator=(thread_guard const&)=delete;
+	};
+	
+编程中，用些地方使用需要通过std::ref来传递引用。如使用bind函数，或者std::thread函数时。
+	  
+	
+

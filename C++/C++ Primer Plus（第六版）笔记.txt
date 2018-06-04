@@ -1,0 +1,123 @@
+============ 第3章 处理数据 ==============
+变量名命名风格参照：
+	可选择在变量名中加入描述变量类型或内容的前缀。例如：intMyWeight
+	常以这种方式使用的其他前缀有：str(表示字符串)、b(表示布尔值)、p(表示指针)、c(表示单个字符)
+术语宽度width：用于描述存储整数时使用的内存量。
+
+整型字面值：
+	头文件iostream提供了控制符dec,hex,oct,分别用于指示cout以十进制，十六进制，八进制格式显示整数
+	例如定义一个变量: heigh=42
+	cout << hex;
+	cout << heigh; //heigh=0x2a;
+	cout << oct;
+	cout << heigh; //heigh=052;
+强制转换通用格式：
+	(typeName) value //来自C语言
+	typeName (value) //纯粹C++
+读取一行字符串输入：
+	cin.getline(name,20)
+C++11新增类型:
+	1)char16_t和char32_t。
+		wchar_t title[] = L"Chief Astrogator";
+		char16_t name[] = u"Felonia Ripova";
+		char32_t car[] = U"Humber Super Snipe";
+	2)原始字符串(raw):字符表示的就是自己，例如，序列\n不表示换行符，而表示两个常规字符--斜杠和n
+		另外，可在字符串中使用",如：
+			cout << R"(Jim "king" Tutt uses "\n" instead of endl.)" <<'\n';
+			Jim "King" Tutt uses \n instead of endl.
+			
+============ 第18章 探讨C++新标准 ============
+Lambda函数：
+	示例生成一个随机整数列表，并判断其中多少个整数可被3整除，多少个整数可被13整除。
+	函数指针:
+	#include<vector>
+	#include<algrithm>
+	...
+	std::vector<int> numbers(1000);
+	std::generate(vector.begin(),vector.end(),std::rand);
+	
+	bool f3(int x) {return x%3==0;}
+	bool f13(int x) {return x%13==0;}
+	
+	int count3 = std::count_if(numbers.begin(),numbers.end(),f3);//第三个参数使用函数指针传参
+	cout<<"Count of numbers divisible by 3: "<<count3<<'\n';
+	int count13=std::count_if(numbers.begin(),numbers.end(),f13);
+	count<<"Count of numbers divisible by 13:"<<count13<<'\n';
+	
+	函数符：
+	class f_mod
+	{
+	private:
+		int dv;
+	public:
+		f_mod(int d=1):dv(d){}
+		bool operator()(int x){return x%dv==0;}
+	};
+	f_mod obj(3);
+	bool isdivby3=obj(7);
+	count3=std::count_if(numbers.begin(),numbers.end(),f_mod(3));//第三个参数使用函数符传参
+	
+	Lambda：
+	[](int x){return x%3==0;}
+	count3=std::count_if(numbers.begin(),numbers.end(),[](int x){return x%3==0;});//第三个参数使用匿名函数(lambda)传参
+
+============第9章 内存模型和名称空间
+
+C++名称空间是另一种控制访问权的方式。
+虽然文中讨论的是根据文件进行单独编译，但为保持通用性，C++标准使用了术语翻译单元translation unit，而不是文件。文件并不是计算机组织信息时的唯一方式。出于简化目的，本书使用术语文件，也称翻译单元。
+
+头文件常包含的内容：
+	函数原型
+	使用#define或const定义的符号常量
+	结构声明
+	类声明
+	模板声明
+	内联函数
+	
+文件名包含在尖括号中：<>,则C++编译器将在存储标准头文件的主机系统的文件系统中查找；
+文件名包含在双引号中："",则C++编译器将首先查找当前的工作目录或源代码目录。
+
+存储持续性：
+	自动存储持续性：C++有两种存储持续性为自动的变量；
+	静态存储持续性：C++有3种存储持续性为静态的变量；
+	线程存储持续性
+	动态存储持续性：用new运算符分配的内存将一直存在，直到使用delete运算符将其释放或程序结束为止。有时被称为自由存储free store或堆heap。
+
+自动存储持续性
+	在默认情况下，在函数中声明的函数参数和变量的存储持续性为自动，作用域为局部，没有链接性。
+	在C++11中，关键字auto用于自动类型推断。
+静态持续变量
+	3种链接性：外部链接性(可在其他文件中访问)、内部链接性(只能在当前文件中访问)、无链接性(只能在当前函数或代码块中访问)
+	1、创建链接性为外部的静态持续变量，必须在代码块的外面声明它；
+	2、创建链接性为内部的静态持续变量，必须在代码块的外面声明它，并使用static限定符；
+	3、创建没有链接性的静态持续变量，必须在代码块内声明它，并使用static限定符。
+	
+	单定义规则：
+	变量只能有一次定义。C++提供了两种变量声明(声明和定义)。声明不给变量分配存储空间，使用关键字extern，且不进行初始化；定义给变量分配存储空间。
+		
+	注意：
+	在多文件程序中，可以在一个文件(且只能在一个文件)中定义一个外部变量。使用该变量的其他文件必须使用关键字extern声明它。
+	
+	无链接性的局部变量：在代码块中使用static时，将导致局部变量的存储持续性为静态的。虽然该变量只在该代码块中可用，但它在该代码块不处于活动状态时仍然存在。因此在两次函数调用之间，静态局部变量的值将保持不变。
+	
+	cv-限定符：const(内存被初始化后，程序便不能再对它进行修改)、volatile(即使程序代码没有对内存单元进行修改，其值也可能发生变化)
+	mutable:即使结构(或类)变量为const,其某个成员也可以被修改。
+	
+	定义常规外部变量时，不必使用extern关键字，但在使用该变量的其他文件中必须使用extern。
+	
+=============第11章 使用类 ===============
+
+重载限制：重载的运算符不必是成员函数，但必须至少有一个操作数是用户定义的类型。
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
