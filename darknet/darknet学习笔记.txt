@@ -1,0 +1,69 @@
+darknet学习笔记：
+	下载YOLOv3工程项目：git clone https://github.com/pjreddie/darknet
+	关于工程项目里的Makefile文件：
+		GPU=0  //置1,使用GPU
+		CUDNN=0 //置1,使用cuda
+		OPENCV=0 //置1,使用opencv
+		OPENMP=0
+		DEBUG=0
+	设置完成后重新编译：make clean , make
+	（注：可能会报错：/bin/sh: 1: nvcc: not found
+		解决方法：修改Makefile文件：
+			NVCC=nvcc ==> NVCC=/usr/local/cuda-8.0/bin/nvcc）
+	下面使用VOC数据集做训练：
+		1、下载数据集VOCtrainval_11-May-2.12.tar、VOCtrainval_06-Nov-2007.tar、VOCtest_06-Nov-2007.tar、VOCtest_06-Nov-2007
+		2、解压以上tar文件
+		3、下载voc_label.py文件到VOCdevkit同级目录下并运行，在项目的darknet/scripts目录下也有该文件，也可以将其拷贝至VOCdevkit同级目录下使用
+			wget https://pjreddie.com/media/files/voc_label.py
+			python voc_label.py
+			执行完后，在VOCdevkit/VOC2007/labels/和VOCdevkit/VOC2012/labels/下可以看到生成的标签文件，voc目录下也生成5个.txt的list文件
+		4、将上述list文件整合： cat 2007_train.txt 2007_val.txt 2012_*.txt > train.txt
+		5、修改cfg/voc.data文件里面的路径，2、3行改为自己的路径
+		6、下载权重文件至darknet目录下做初次训练:
+			wget https://pjreddie.com/media/files/darknet53.conv.74
+		7、开始训练：
+			./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg darknet3.conv.74
+			训练过程中，会阶段性的在backup/目录下生成.weights文件
+		8、对生成的模型做测试：
+			拷贝backup/目录下的.weights文件到darknet/weights/目录下
+			./darknet detector test cfg/voc.data cfg/yolov3-voc.cfg weights/yolov3-voc_400.weights data/dog.jpg
+			单独检测模型：
+			./darknet detect cfg/yolov3-voc.cfg weights/yolov3-voc.backup data/person.jpg
+	相关文件的修改：
+		darknet/cfg/yolov3-voc.cfg
+		
+		darknet/cfg/voc.data
+			涉及一些参数的定义：
+				classes（类别数量）
+				train(训练文件)
+				valid(验证文件)
+				names(每一类的命名)
+				backup(存放训练模型的地址)
+		
+		darknet/data/voc.names
+			每一类对应的类名
+			
+初学darknet相关链接：
+	网络配置文件.cfg解析 https://blog.csdn.net/gzj2013/article/details/82349730
+	训练步骤 https://blog.csdn.net/qq_34806812/article/details/81292151	
+
+darknet训练日志输出解析（我的.cfg文件==>batch=64,subdivision=32）：
+		1、每个batch批次都会有这样一个输出：
+			215：12.221436,16.024437 avg, 0.000002 rate, 6.437454 seconds, 13760 images 
+			215:batch是第几组
+			12.221436：总损失
+			16.024437 avg：平均损失
+			0.000002 rate：当前的学习率
+			6.437454 seconds：当前batch训练所花的时间
+			13760 images: 目前为止参与训练的图片总数 = 215*64
+		2、在每个批次batch中，训练迭代包含了32组，每组又包含了2张图片（32*2=64）
+			每组包含三条信息：
+				Region 82 Avg IOU:
+				Region 94 Avg IOU:
+				Region 106 Avg IOU:
+		3、解析输出信息：Region 82 Avg IOU: 0.789017, Class: 0.794938, Obj: 0.750831, No Obj: 0.021294, .5R: 1.000000, .75R: 0.833333,  count: 6
+			Region Avg IOU: 表示当前subdivision内的图片的平均IOU，代表预测的矩形和真实目标的交集与并集之比
+			Class：标注物体分类的正确率，期望该值趋近于1
+			Obj：越接近1越好
+			No Obj：期望该值越来越小，但不为0
+			count：表示所有的当前的subdivision图片中包含正样本的图片的数量
