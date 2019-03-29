@@ -1,0 +1,206 @@
+linux下安装c++ rabbitmq客户端SimpleAmqpClient:
+	https://blog.csdn.net/chent86/article/details/76070280?utm_source=debugrun&utm_medium=referral 
+	
+RapidJson 读写数据到文件：
+	https://blog.csdn.net/teleger/article/details/80498731
+	
+C++ json库 读写数据到文件：
+	https://blog.csdn.net/qqwangfan/article/details/53462739
+
+json在线解析：
+	http://json.tongxiehui.net/
+	
+rabbitmq的web管理相关命令：
+	https://www.cnblogs.com/mingaixin/p/4134920.html
+	
+YUV和RGB格式分析：
+	http://www.cnblogs.com/silence-hust/p/4465354.html
+	
+RTSP协议流程知识：
+	https://blog.csdn.net/engineer_james/article/details/79701304
+	
+linux C++ 递归删除文件夹下所有内容：
+	https://blog.csdn.net/yongyu_it/article/details/53335090
+	
+wireshark抓包分析rtsp/rtp/rtcp基本工作过程：
+	https://www.jianshu.com/p/409f20b7e813
+	
+RabbitMQ中 exchange route queue的关系：
+	https://blog.csdn.net/zhousenshan/article/details/78848748
+	
+Windows下启动rabbitmq服务及安装详解：
+	https://blog.csdn.net/qq496013218/article/details/60872245
+	
+linux vim 使用命令：
+	http://blog.51cto.com/13695854/2103714
+
+Ubuntu16.04安装gRPC:
+	https://blog.csdn.net/weixin_39986952/article/details/81168633
+
+opencv视频剪切：
+	https://blog.csdn.net/lyl771857509/article/details/78436907
+	
+sobook电子书网站：
+	https://sobooks.cc
+	
+VLC搭建RTSP服务器方法：
+	https://wenku.baidu.com/view/9fc5d09c6bec0975f465e294.html
+	
+base64在线解码编码：
+	http://base64.xpcha.com/pic.html
+	
+在线电子书转换器：
+	http://cn.epubee.com/
+	
+码农网（程序员编程资料和编程经验分享平台）：
+	http://www.codeceo.com/
+	
+维基百科网：
+	https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5
+	
+win10下安装ubuntu16.04：
+	https://blog.csdn.net/s717597589/article/details/79117112/
+	
+ubuntu12.10菜鸟使用手册（一）：
+	https://wenku.baidu.com/view/5bd0d60cf78a6529647d5337.html
+	
+Google C++编程风格指南：
+	http://www.codeceo.com/article/google-cpp-guide-format.html
+	
+红黑树（一）之原理和算法详细介绍：
+	https://www.cnblogs.com/skywang12345/p/3245399.html
+
+Qt编写的RTSP播放器+视频监控（ffmpeg版本）：
+	http://www.qtcn.org/bbs/read-htm-tid-65927.html
+	
+QT安装简介：
+	https://blog.csdn.net/xiongtiancheng/article/details/80036605
+	
+Qt学习之路系列教程目录：
+	http://www.qter.org/thread-629-1-1.html
+
+Qt编写的RTSP播放器+视频监控（vlc版本）：
+	http://www.qtcn.org/bbs/read-htm-tid-65940-fpage-6.html
+	
+OpenCV+Qt+Win10开发环境配置：
+	https://blog.csdn.net/u010189457/article/details/66478574
+
+Qt中使用Opencv处理并显示图片程序框架：
+	https://blog.csdn.net/qingyang8513/article/details/80378491
+	
+OpenCV使用CMake和MinGW的编译安装+常见错误解决：
+	https://blog.csdn.net/huihut/article/details/78701814
+	
+Qt获取鼠标坐标以及按键响应：
+	https://blog.csdn.net/humanking7/article/details/80707591
+	
+Qt获取鼠标位置（相对位置以及绝对位置）：
+	https://blog.csdn.net/owen7500/article/details/51035078
+
+opencv基础知识-videowriter
+	https://www.cnblogs.com/polly333/p/5165290.html
+	
+RabbitMQ（GO语言操作）知识汇总（一）
+	https://blog.csdn.net/qq_33850908/article/details/80944238
+
+google-test工具的使用，如何添加自己的测试函数进行测试
+	https://www.linuxidc.com/Linux/2015-05/116894.htm
+	
+c++语言的单元测试与代码覆盖率
+	http://www.codeceo.com/article/unit-testing-and-code-coverage-for-c.html
+	
+google-test 安装
+	https://blog.csdn.net/u013105439/article/details/78898142
+	
+linux平台代码覆盖率测试工具gcov简介
+	https://www.linuxidc.com/Linux/2011-05/36545.htm
+	
+linux平台代码覆盖率测试工具gcov的前端工具lcov简介
+	https://www.linuxidc.com/Linux/2011-05/36544.htm
+	
+win10应用商店安装的ubuntu子系统的root目录路径：
+	C:\Users\cyan\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu16.04onWindows_79rhkp1fndgsc\LocalState\rootfs
+	
+Ubuntu下安装vim nerdtree树形浏览器：
+	https://www.cnblogs.com/zzb-Dream-90Time/p/7116406.html
+	
+（官方步骤）YOLO-L3训练VOC数据集
+	https://blog.csdn.net/qq_34806812/article/details/81292151
+	
+Pascal Voc数据集详细分析：
+	https://blog.csdn.net/u013832707/article/details/80060327
+
+判断一个点是否在多边形区域内（C算法）：
+	https://www.cnblogs.com/MingoJiang/p/8682220.html
+
+用imwrite改变保存的图片质量：
+	https://blog.csdn.net/yph001/article/details/79866444
+	
+Linux Shell 生成随机数和随机字符串：
+	https://my.oschina.net/sunboy2050/blog/3008679
+	
+c++面试基础知识总结：
+	https://github.com/huihut/interview
+	
+KCF目标跟踪代码及注释：
+	https://blog.csdn.net/dengheCSDN/article/details/78037170
+	
+clock()在c++中的作用：
+	https://blog.csdn.net/gududesiling/article/details/6121852
+	
+idea 2018注册码：
+	https://blog.csdn.net/zhw0596/article/details/81394870
+	
+linux下boost库的安装：
+	https://www.cnblogs.com/LyndonYoung/articles/5288618.html
+	
+golang log模块之log4go使用介绍：
+	https://blog.csdn.net/Jeanphorn/article/details/78576759
+	
+c/c++网络编程概述：
+	https://blog.csdn.net/chenchukun/article/details/78991215
+	
+ov7670摄像头的使用说明：
+	https://baijiahao.baidu.com/s?id=1576721348022988876&wfr=spider&for=pc
+	
+常见视频编码格式解析：
+	https://blog.csdn.net/houxiaoni01/article/details/78812485/
+	
+ffmpeg编解码过程，基本命令用法大全：
+	https://www.cnblogs.com/zxqstrong/p/4555517.html
+	
+intellij idea找不到新的golang插件解决方法：
+	https://studygolang.com/articles/10661
+	
+opencv学习：读取视频，读取摄像头
+	https://www.cnblogs.com/little-monkey/p/7162340.html
+	
+海康RTSP流转RTMP并推送至Web端展示：
+	https://blog.csdn.net/LLittleF/article/details/81111713
+
+运动检测（前景检测）之（二）混合高斯模型GMM
+	https://blog.csdn.net/zouxy09/article/details/9622401
+	
+运动目标追踪实现(opencv)：
+	https://blog.csdn.net/m0_37407756/article/details/83242403
+	
+Opencv3之动态目标检测：BackgroundSubtractorMOG2参数配置:
+	https://blog.csdn.net/m0_37901643/article/details/72841289
+
+CUDA入门教程：
+https://blog.csdn.net/zjc156m/article/details/79015742
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
