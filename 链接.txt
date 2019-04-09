@@ -188,7 +188,25 @@ Opencv3之动态目标检测：BackgroundSubtractorMOG2参数配置:
 	https://blog.csdn.net/m0_37901643/article/details/72841289
 
 CUDA入门教程：
-https://blog.csdn.net/zjc156m/article/details/79015742
+	https://blog.csdn.net/zjc156m/article/details/79015742
+
+减低CPU占用率小贴士：
+	https://blog.csdn.net/sweetloverft/article/details/38311925
+	
+互联网大厂愚人节恶搞：
+	https://blog.csdn.net/csdnnews/article/details/88984708
+	
+值得学习的C语言开源项目：
+	https://www.cnblogs.com/zengkefu/p/6790459.html
+	
+ubuntu下编译运行tinyhttpd方法及源码解析：（重点：http请求）
+	https://blog.csdn.net/sodawaterer/article/details/73289779
+	
+json的C语言编解码器——cJSON和json-c:
+	https://blog.csdn.net/wadefelix/article/details/6965327
+	
+支持json库的语言：
+	http://www.json.org/json-zh.html
 	
 	
 
