@@ -1,0 +1,63 @@
+rtmp规范分析
+https://blog.csdn.net/leixiaohua1020/article/details/11694129
+
+一、RTMP传输媒体数据的过程中，发送端首先把媒体数据封装成消息，然后把消息分割成消息块，最后将分割后的消息块通过TCP协议发送出去。
+接收端在通过TCP协议收到数据后，首先把消息块重新组合成消息，然后通过对消息进行界封装处理就可以恢复出媒体数据。
+
+1、消息
+	RTMP协议中基本的数据单元
+	不同种类的消息包含不同的Message Type ID:
+	1-7 用于协议控制，
+	8、9 用于传输音频和视频数据，
+	15-20 用于发送AMF编码的命令，负责用户与服务器之间的交互（播放，暂停等）。
+	消息部首（Message Header)由四部分组成：
+		标志消息类型Message Type ID, 1B
+		标志消息长度Payload Length, 3B
+		标志时间戳Timestamp, 4B
+		标志消息所属媒体流Stream ID, 3B
+	
+2、消息块Chunk
+	消息在网络上传输时被拆分成消息块Chunk。
+	消息块首部由三部分组成：
+		本块的标志Chunk Basic Header
+		标志本块负载所属消息Chunk Message Header
+		标志时间戳溢出Extended Timestamp
+		
+3、消息分块
+	消息负载部分（Message Body）被分割成大小固定的数据块，并在首部加上消息块的部首，就组成了相应的消息块。
+
+二、rtmp流媒体播放过程
+	1)握手HandShake
+	客户端发送信令C0+C1;
+	服务器收到C0+C1后发送S0+S1+S2；
+	当客户端收S0+S1后，开始发送C2；
+	当客户端和服务器分别收到S2和C2后，握手完成。
+	2）建立网络连接）
+	
+三、rtmpdump源码分析
+	1、获取源码：
+		git clone git://git.ffmpeg.org/rtmpdump
+	2、编译源码
+		cd rtmpdump 
+		make
+	3、使用rtmpdump获取rtmp流并保存视频文件
+		1）安装nginx，安装步骤见github安装脚本
+		2）启动nginx: 
+			sudo /usr/local/nginx/sbin/nginx
+		3）利用ffmpeg工具推流：
+			ffmpeg -re -i ./video001.avi -c copy -f flv rtmp://172.17.10.74:1935/myapp/tester
+		4）利用rtmpdump工具拉流：
+			rtmpdump -r rtmp://172.17.10.74:1935/myapp/tester
+4、rtmpdump下载一个流媒体的大致流程：
+	InitSocket()
+	RTMP_Init()
+	RTMP_ParseURL()
+	RTMP_SetupStream()
+	fopen()
+	RTMP_Connteted()
+	RTMP_ConnectStream()
+	Download()
+	RTMP_Close()
+	fclose()
+	CleanupSockets()
+	

@@ -1,0 +1,65 @@
+视音频数据处理入门https://blog.csdn.net/leixiaohua1020/article/details/50534150
+
+1、RGB、YUV像素数据处理
+	主要介绍如下几种数据处理过程函数
+	1）分离YUV420P像素数据中的Y、U、V分量
+	如果视频帧的宽和高分别为w和h,那么一帧YUV420P像素数据一共占用w*h*3/2Byte的数据。
+	其中前w*h Byte存储Y，接着的w*h*1/4 Byte存储U，最后w*h*1/4 Byte存储V。
+	
+	2）分离YUV444P像素数据中的Y、U、V分量
+	如果视频帧的宽和高分别为w和h，那么一帧YUV44P像素数据一共占用w*h*3 Byte存储Y，接着的w*h Byte存储U，最后w*h Byte存储V。
+	
+	3）将YUV420P像素数据去掉颜色（变成灰度图）
+	只需要将U、V分量设置成128即可：memset(pic+w*h,128,w*h/2)；
+	
+	4）将YUV420像素数据的亮度减半
+	只要将图像的每个像素的Y值减半即可
+	
+	5）将YUV420P像素数据的周围加上边框
+	只要将边框部分的Y分量值设置成亮度最大值255即可。
+	
+	6）生成YUV420P格式的灰阶测试图
+	
+	7）计算两个YUV420P像素数据的PSNR
+	PSNR通常用于质量评价，就是计算受损图像与原始图像之间的差别。
+	PSNR取值通常情况下都在20-50范围，取值越高代表两张图像越接近。
+	
+	8）分离RGB24像素数据中的R、G、B分量
+	fread(pic,1,w*h*3,fp);
+	for(int j = 0; j < w*h*3; j++)
+	{
+		fwrite(pic+j,1,1,fp1);
+		fwrite(pic+j+1,1,1,fp2);
+		fwrite(pic+j+2,1,1,fp3);
+	}
+	
+	9)将RGB24格式像素数据封装为BMP图像
+	过程主要为：
+		1、将RGB数据前面加上文件头；
+		2、将RGB数据中每个像素的“B”和“R”的位置互换（即BGR数据）
+		
+	10）将RGB24格式像素数据转换为YUV420P格式数据
+	
+	11）生成RGB24格式的彩条测试图
+	
+2、PCM音频采样数据处理
+
+3、H.264视频码流解析
+	主要实现两个步骤：
+	从码流中搜索起始码（分两种0x000001(3Byte) 或者 0x00000001(4Byte)，分离出NALU；
+	再分析NALU各个字段。
+	typedef enum {
+		NALU_TYPE_SLICE    = 1,
+		NALU_TYPE_DPA      = 2,
+		NALU_TYPE_DPB      = 3,
+		NALU_TYPE_DPC      = 4,
+		NALU_TYPE_IDR      = 5,
+		NALU_TYPE_SEI      = 6,
+		NALU_TYPE_SPS      = 7,
+		NALU_TYPE_PPS      = 8,
+		NALU_TYPE_AUD      = 9,
+		NALU_TYPE_EOSEQ    = 10,
+		NALU_TYPE_EOSTREAM = 11,
+		NALU_TYPE_FILL     = 12,
+	} NaluType;
+	

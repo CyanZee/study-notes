@@ -208,17 +208,79 @@ json的C语言编解码器——cJSON和json-c:
 支持json库的语言：
 	http://www.json.org/json-zh.html
 	
+Qt视屏监管平台：
+	http://www.qtcn.org/bbs/read-htm-tid-58116.html
 	
+Qt使用FontAwesome图标字体库：
+	https://blog.csdn.net/zhengtianzuo06/article/details/78504976
+	查看字体编码：http://fontawesome.io/cheatsheet/
 
+守护进程deamon的实现：
+	https://blog.csdn.net/leezha/article/details/78019116
 	
+教程：树莓派程序开机自启动方法总结：
+	https://www.jianshu.com/p/86adb6d5347b/
 	
+cmake下载：
+	https://cmake.org/download/
+
+国内源（apt-get):
+	https://blog.csdn.net/skyie53101517/article/details/50450989
 	
+Ubuntu的网络配置：
+	http://blog.chinaunix.net/uid-22117508-id-157758.html
 	
+人脸识别算法：
+	https://github.com/ShiqiYu/libfacedetection
 	
+海思3519编译opencv3.2.0:
+	https://blog.csdn.net/qq_39660930/article/details/78050030
+	https://www.cnblogs.com/chay/p/10384942.html
 	
+Qt发布：
+	windeployqt *.exe
 	
+opencv官方文档：
+	https://docs.opencv.org/
 	
+opencv中的cv2 CV_FOURCC('a','v','c','1')解析：
+	https://blog.csdn.net/jgw2008/article/details/79317454
 	
+opencv开发，使用VideoCapture类进行视频读取和显示：
+	https://www.cnblogs.com/huty/p/8518155.html
 	
+海思hi3519开发板介绍：
+	http://www.elecfans.com/news/799476.html
 	
+海思Hi3519模块开发板最新资料介绍：
+	https://blog.csdn.net/szx940213/article/details/83089965
 	
+HI3519V101的mpp中sample总体分析：
+	https://blog.csdn.net/wangdapao12138/article/details/82534865
+
+海思3519 arm-hisiv500-linux-交叉编译x264、ffmpeg、opencv:
+	https://blog.csdn.net/weixin_39371711/article/details/80424139
+	
+opencv学习文档：
+	https://www.w3cschool.cn/opencv/opencv-bedc2caa.html
+
+RTMP、RTSP、HTTP协议流常用直播流地址：
+	https://blog.csdn.net/u014162133/article/details/81188410
+
+多种操作系统在线试用：
+	https://distrotest.net/
+
+ffmpeg视音频编解码零基础学习：
+	https://blog.csdn.net/leixiaohua1020/article/details/15811977
+
+
+
+
+
+
+
+
+
+
+
+
